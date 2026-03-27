@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+package main;
+
+option go_package="/proto/gen;grpcapipb";
+
+service StudentsService {
+    rpc GetStudents (GetStudentsRequest) returns (Students);
+    rpc AddStudents (Students) returns (Students);
+    rpc UpdateStudents (Students) returns (Students);
+    rpc DeleteStudents (StudentIds) returns (DeleteStudentsConfirmation);
+}
+
+
+message StudentId {
+    string id = 1 [(validate.rules).string =  {min_len: 24, max_len: 24, pattern: "^[a-fA-F0-9]{24}$"}];
+}
+
+message StudentIds {
+    repeated StudentId ids = 1 [(validate.rules).repeated = {min_items: 1}];
+}
+
+message DeleteStudentsConfirmation {
+    string status = 1;
+    repeated string deletedIds = 2;
+}
+
+message GetStudentsRequest {
+    Student student = 1;
+    repeated SortField sortBy = 2;
+    uint32 page_number = 3;
+    uint32 page_size = 4;
+}
+
+message SortField {
+    string field = 1;
+    Order orderBy =  2;
+}
+
+
+enum Order {
+    ASC = 0;
+    DESC = 1;
+}
+
+
+message Student {
+    string id = 1 [(validate.rules).string = {min_len: 24, max_len: 24}];
+    string first_name = 2 [(validate.rules).string = {pattern: "^[a-zA-z ]*$"}];
+    string last_name = 3 [(validate.rules).string = {pattern: "^[a-zA-z ]*$"}];
+    string email = 4 [(validate.rules).string = {email: true}];
+    string class = 5 [(validate.rules).string = {pattern: "^[a-zA-z0-9 ]*$"}];
+}
+
+message Students {
+    repeated Student students = 1 [(validate.rules).repeated = {min_items: 1}];
+}

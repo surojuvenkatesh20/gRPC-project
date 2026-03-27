@@ -1,0 +1,17 @@
+{
+    "proto": "/mnt/c/Users/Dheeraj/OneDrive/Folder/venkatesh/grpc-mongo-project/proto/students.proto",
+    "call": "main.StudentsService.GetStudents",
+    "concurrency": 100,
+    "data": {
+        "page_number": 1,
+        "page_size": 335
+    },
+    "max-duration": "20s",
+    "host": "localhost:50051",
+    "cert": "/mnt/c/Users/Dheeraj/OneDrive/Folder/venkatesh/grpc-mongo-project/cert/cert.pem",
+    "key": "/mnt/c/Users/Dheeraj/OneDrive/Folder/venkatesh/grpc-mongo-project/cert/key.pem",
+    "cacert": "/mnt/c/Users/Dheeraj/OneDrive/Folder/venkatesh/grpc-mongo-project/cert/cert.pem",
+    "metadata": {
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzQ2MDExOTksInJvbGUiOiJhZG1pbiIsInVpZCI6IjY5YzYxZjZkZTQxOTQwMTc2ODI2MTc3ZCIsInVuYW1lIjoiYWxpY2Uuc21pdGgifQ.xuiRpFtyoap--C_JVfGssJN_XXygAnKaSnQ1mqkYZIo"
+    }
+}

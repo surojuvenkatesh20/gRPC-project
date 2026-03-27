@@ -1,0 +1,13 @@
+//for loading .env file
+go get github.com/joho/godotenv
+
+//for hashing password
+golang.org/x/crypto/argon2
+
+
+create index in db:
+db.getCollection("execs").createIndex({email: 1}, {unique: true})
+
+
+
+benchmarshing: ghz --config ghz_config.json

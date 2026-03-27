@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "students.proto";
+
+package main;
+
+option go_package="/proto/gen;grpcapipb";
+
+service TeachersService {
+    rpc GetTeachers (GetTeachersRequest) returns (Teachers);
+    rpc AddTeachers (Teachers) returns (Teachers);
+    rpc UpdateTeachers (Teachers) returns (Teachers);
+    rpc DeleteTeachers (TeacherIds) returns (DeleteTeachersConfirmation);
+    rpc GetStudentsByClassTeacher (TeacherId) returns (Students);
+    rpc GetStudentsCountByClassTeacher (TeacherId) returns (StudentsCount);
+}
+
+
+message StudentsCount {
+    bool status = 1;
+    int32 students_count = 2;
+}
+
+
+message TeacherId {
+    string id = 1 [(validate.rules).string = {min_len: 24, max_len: 24, pattern: "^[a-fA-F0-9]{18$}"}];
+}
+
+message TeacherIds {
+    repeated TeacherId ids = 1 [(validate.rules).repeated = {min_items: 1}];
+}
+
+message DeleteTeachersConfirmation {
+    string status = 1;
+    repeated string deletedIds = 2;
+}
+
+message GetTeachersRequest {
+    Teacher teacher = 1;
+    repeated SortField sortBy = 2;
+}
+
+message Teacher {
+    string id = 1 [(validate.rules).string = {min_len: 24, max_len: 24, pattern: "^[a-fA-F0-9]{24}$"}];
+    string first_name = 2 [(validate.rules).string = {pattern: "^[a-zA-z0-9 ]*$"}];
+    string last_name = 3 [(validate.rules).string = {pattern: "^[a-zA-z0-9 ]*$"}];
+    string email = 4 [(validate.rules).string = {email :true}];
+    string class = 5 [(validate.rules).string = {pattern: "^[a-zA-z0-9]*$"}];
+    string subject = 6 [(validate.rules).string = {pattern: "^[a-zA-z0-9 ]*$"}];
+}
+
+message Teachers {
+    repeated Teacher teachers = 1;
+}
